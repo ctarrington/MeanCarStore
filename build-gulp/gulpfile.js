@@ -37,13 +37,12 @@ gulp.task('jshint', function () {
  * Minify and bundle the JavaScript
  */
 gulp.task('bundlejs', ['jshint', 'cleanOutput'], function () {
-    var bundlefile = "consolidated.min.js";
-    var opt = {newLine: ';'};
 
     return gulp.src(pkg.paths.source.js)
         .pipe(plugins.size({showFiles: true}))
-        //.pipe(plugins.uglify())
-        .pipe(plugins.concat(bundlefile, opt))
+        .pipe(plugins.concat('consolidated.js'))
+        .pipe(plugins.ngAnnotate())
+        .pipe(plugins.uglify())
         .pipe(gulp.dest(pkg.paths.dest))
         .pipe(plugins.size({showFiles: true}));
 });
@@ -71,7 +70,7 @@ gulp.task('default', ['bundlejs', 'bundletemplates']);
  * Watch file and re-run the linter
  */
 gulp.task('build-watcher', function() {
-    var jsWatcher = gulp.watch(pkg.paths.source.js, ['jshint']);
+    var jsWatcher = gulp.watch(pkg.paths.source.js, ['default']);
 
     jsWatcher.on('change', function(event) {
         console.log('*** File ' + event.path + ' was ' + event.type + ', running tasks...');

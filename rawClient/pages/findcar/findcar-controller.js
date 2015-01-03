@@ -1,9 +1,8 @@
 (function () {
     'use strict';
 
-    angular.module('mcsapp').controller('FindCarController', ['$scope', function ($scope) {
-
-
-    }]);
+    angular.module('mcsapp').controller('FindCarController', function ($scope) {
+        $scope.name = 'foo';
+    });
 
 })();
