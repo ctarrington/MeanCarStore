@@ -5,18 +5,8 @@
   "main": "index.js",
   "author": "CT Arrington",
   "paths": {
-    "source": {
-      "js": [
-        "../rawClient/**/*.js"
-      ],
-      "styles": [
-        "../rawClient/**/*.scss"
-      ],
-      "templates": [
-        "../rawClient/**/*.html"
-      ]
-    },
-    "dest": "../public/app/"
+    "source": "../rawClient/**/",
+    "dest":   "../public/app/"
   },
   "devDependencies": {
     "chalk": "^0.5.1",

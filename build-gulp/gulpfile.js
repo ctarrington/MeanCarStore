@@ -21,13 +21,13 @@ gulp.task('cleanOutput', function(){
 
 
 gulp.task('jshint', function () {
-    return gulp.src(pkg.paths.source.js)
+    return gulp.src(pkg.paths.source+'*.js')
         .pipe(plugins.jshint('jshintrc.json'))
         .pipe(plugins.jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('bundlejs', ['jshint', 'cleanOutput'], function () {
-    return gulp.src(pkg.paths.source.js)
+    return gulp.src(pkg.paths.source+'*.js')
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.concat('consolidated.js'))
         .pipe(plugins.ngAnnotate())
@@ -38,7 +38,7 @@ gulp.task('bundlejs', ['jshint', 'cleanOutput'], function () {
 });
 
 gulp.task('bundlestyles', ['jshint', 'cleanOutput'], function () {
-    return gulp.src(pkg.paths.source.styles)
+    return gulp.src(pkg.paths.source+'*.scss')
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.sass())
         .pipe(plugins.autoprefixer())
@@ -48,7 +48,7 @@ gulp.task('bundlestyles', ['jshint', 'cleanOutput'], function () {
 });
 
 gulp.task('bundletemplates',  ['jshint', 'cleanOutput'], function () {
-    return gulp.src(pkg.paths.source.templates)
+    return gulp.src(pkg.paths.source+'*.html')
         .pipe(plugins.templatecache({module: 'mcsapp'}))
         .pipe(gulp.dest(pkg.paths.dest));
 });
