@@ -1,7 +1,13 @@
-div.findcar span.interesting {
-  color: $red;
-}
+$red: #ff1111;
 
-div.findcar span.fascinating {
-  color: darken($red, 20%);
+div.findcar {
+
+  span.interesting {
+    color: $red;
+  }
+
+  span.fascinating {
+    color: darken($red, 20%);
+  }
+
 }

@@ -25,24 +25,21 @@ gulp.task('jshint', function () {
 
 gulp.task('bundlejs', ['jshint', 'cleanOutput'], function () {
     return gulp.src(pkg.paths.source.js)
-        .pipe(plugins.size({showFiles: true}))
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.concat('consolidated.js'))
         .pipe(plugins.ngAnnotate())
         .pipe(plugins.uglify())
         .pipe(plugins.sourcemaps.write())
         .pipe(gulp.dest(pkg.paths.dest))
-        .pipe(plugins.size({showFiles: true}));
+        .pipe(plugins.size({showFiles: false}));
 });
 
 gulp.task('bundlestyles', ['jshint', 'cleanOutput'], function () {
     return gulp.src(pkg.paths.source.styles)
-        .pipe(plugins.size({showFiles: true}))
-        .pipe(concatCss('consolidated.css'))
         .pipe(plugins.sass())
         .pipe(plugins.autoprefixer())
-        .pipe(gulp.dest(pkg.paths.dest))
-        .pipe(plugins.size({showFiles: true}));
+        .pipe(concatCss('consolidated.css'))
+        .pipe(gulp.dest(pkg.paths.dest));
 });
 
 gulp.task('bundletemplates',  ['jshint', 'cleanOutput'], function () {
