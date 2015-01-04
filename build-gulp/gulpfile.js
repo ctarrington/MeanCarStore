@@ -36,9 +36,11 @@ gulp.task('bundlejs', ['jshint', 'cleanOutput'], function () {
 
 gulp.task('bundlestyles', ['jshint', 'cleanOutput'], function () {
     return gulp.src(pkg.paths.source.styles)
+        .pipe(plugins.sourcemaps.init())
         .pipe(plugins.sass())
         .pipe(plugins.autoprefixer())
         .pipe(concatCss('consolidated.css'))
+        .pipe(plugins.sourcemaps.write())
         .pipe(gulp.dest(pkg.paths.dest));
 });
 
