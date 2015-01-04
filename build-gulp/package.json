@@ -6,7 +6,8 @@
   "author": "CT Arrington",
   "paths": {
     "source": "../rawClient/**/",
-    "dest":   "../public/app/"
+    "dev":   "../public/dev/",
+    "prod":   "../public/prod/"
   },
   "devDependencies": {
     "chalk": "^0.5.1",

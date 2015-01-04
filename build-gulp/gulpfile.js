@@ -8,16 +8,18 @@ var plugins = require('gulp-load-plugins')({
         'gulp-angular-templatecache': 'templatecache'
     }
 });
-var gutil = plugins.loadUtils(['colors', 'env', 'log', 'date']);
 
-var type = gutil.env.production ? 'production' : 'development';
-gutil.log( 'Building for', gutil.colors.magenta(type) );
-
-
-gulp.task('cleanOutput', function(){
-    return gulp.src([pkg.paths.dest])
+gulp.task('cleanDev', function(){
+    return gulp.src([pkg.paths.dev])
         .pipe(plugins.clean({force: true}));
 });
+
+gulp.task('cleanProd', function(){
+    return gulp.src([pkg.paths.prod])
+        .pipe(plugins.clean({force: true}));
+});
+
+gulp.task('clean', ['cleanDev', 'cleanProd']);
 
 
 gulp.task('jshint', function () {
@@ -26,37 +28,40 @@ gulp.task('jshint', function () {
         .pipe(plugins.jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('bundlejs', ['jshint', 'cleanOutput'], function () {
+gulp.task('bundlejs', ['jshint', 'clean'], function () {
     return gulp.src(pkg.paths.source+'*.js')
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.concat('consolidated.js'))
         .pipe(plugins.ngAnnotate())
         .pipe(plugins.uglify())
+        .pipe(gulp.dest(pkg.paths.prod))
         .pipe(plugins.sourcemaps.write())
-        .pipe(gulp.dest(pkg.paths.dest))
+        .pipe(gulp.dest(pkg.paths.dev))
         .pipe(plugins.size({showFiles: false}));
 });
 
-gulp.task('bundlestyles', ['jshint', 'cleanOutput'], function () {
+gulp.task('bundlestyles', ['jshint', 'clean'], function () {
     return gulp.src(pkg.paths.source+'*.scss')
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.sass())
         .pipe(plugins.autoprefixer())
         .pipe(plugins.concatcss('consolidated.css'))
+        .pipe(gulp.dest(pkg.paths.prod))
         .pipe(plugins.sourcemaps.write())
-        .pipe(gulp.dest(pkg.paths.dest));
+        .pipe(gulp.dest(pkg.paths.dev));
 });
 
-gulp.task('bundletemplates',  ['jshint', 'cleanOutput'], function () {
+gulp.task('bundletemplates',  ['jshint', 'clean'], function () {
     return gulp.src(pkg.paths.source+'*.html')
         .pipe(plugins.templatecache({module: 'mcsapp'}))
-        .pipe(gulp.dest(pkg.paths.dest));
+        .pipe(gulp.dest(pkg.paths.dev))
+        .pipe(gulp.dest(pkg.paths.prod));
 });
 
 gulp.task('default', ['bundlejs', 'bundletemplates', 'bundlestyles']);
 
-gulp.task('build-watcher', function() {
-    var jsWatcher = gulp.watch([pkg.paths.source.js, pkg.paths.source.templates, pkg.paths.source.styles], ['default']);
+gulp.task('watch', function() {
+    var jsWatcher = gulp.watch([pkg.paths.source+'*.js', pkg.paths.source+'*.html', pkg.paths.source+'*.scss'], ['default']);
 
     jsWatcher.on('change', function(event) {
         console.log('*** File ' + event.path + ' was ' + event.type + ', running tasks...');
