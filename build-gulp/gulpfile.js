@@ -1,10 +1,13 @@
 var gulp = require('gulp');
 var pkg = require('./package.json');
-var templateCache = require('gulp-angular-templatecache');
-var concatCss = require('gulp-concat-css');
 
 /* Auto load all gulp plugins */
-var plugins = require('gulp-load-plugins')();
+var plugins = require('gulp-load-plugins')({
+    rename: {
+        'gulp-concat-css': 'concatcss',
+        'gulp-angular-templatecache': 'templatecache'
+    }
+});
 var gutil = plugins.loadUtils(['colors', 'env', 'log', 'date']);
 
 var type = gutil.env.production ? 'production' : 'development';
@@ -39,14 +42,14 @@ gulp.task('bundlestyles', ['jshint', 'cleanOutput'], function () {
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.sass())
         .pipe(plugins.autoprefixer())
-        .pipe(concatCss('consolidated.css'))
+        .pipe(plugins.concatcss('consolidated.css'))
         .pipe(plugins.sourcemaps.write())
         .pipe(gulp.dest(pkg.paths.dest));
 });
 
 gulp.task('bundletemplates',  ['jshint', 'cleanOutput'], function () {
     return gulp.src(pkg.paths.source.templates)
-        .pipe(templateCache({module: 'mcsapp'}))
+        .pipe(plugins.templatecache({module: 'mcsapp'}))
         .pipe(gulp.dest(pkg.paths.dest));
 });
 
