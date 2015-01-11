@@ -1,5 +1,9 @@
-<div class="findcar">
-    yo from find car name is: <span class="interesting">{{name}}</span>. Isn't that <span class="fascinating">awesome</span>?
-    <a ui-sref="cars.details">Details</a>
+<div class="cars">
+    <h1>List of Cars</h1>
+    <div ng-repeat="car in model.cars">
+        {{car.model}} by {{car.make}} <a ui-sref=".details({id: car.id})">More Below</a> <a ui-sref="cardetail({id: car.id})">More</a>
+    </div>
+
+    <h1>Details</h1>
     <div ui-view></div>
 </div>

@@ -1,6 +1,11 @@
 (function () {
     'use strict';
 
+    var carsList = [
+        {id: '1', make: 'Ford', model: 'Fusion'},
+        {id: '2', make: 'Subaru', model: 'Forester'}
+    ];
+
     angular.module('mcsapp').config(function($stateProvider, $urlRouterProvider) {
 
         // For any unmatched url, send to /route1
@@ -11,16 +16,25 @@
                 url: '/cars',
                 templateUrl: 'pages/cars/cars-partial.html',
                 controller: function($scope) {
-                    $scope.name = 'Fred';
+                    $scope.model = {};
+                    $scope.model.cars = carsList;
                 }
             })
             .state('cars.details', {
-                url: '/details',
+                url: '/details/:id',
                 templateUrl: 'pages/cars/carsdetails-partial.html',
-                controller: function($scope) {
-                    $scope.name = 'Lead';
+                controller: function($scope, $stateParams) {
+                    $scope.car = Lazy(carsList).findWhere({id: $stateParams.id});
                 }
-            });
+            })
+            .state('cardetail', {
+                url: '/cardetail/:id',
+                templateUrl: 'pages/cars/carsdetails-partial.html',
+                controller: function($scope, $stateParams) {
+                    $scope.car = Lazy(carsList).findWhere({id: $stateParams.id});
+                }
+            })
+        ;
     });
 
 })();
