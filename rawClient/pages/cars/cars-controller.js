@@ -24,14 +24,14 @@
                 url: '/details/:id',
                 templateUrl: 'pages/cars/carsdetails-partial.html',
                 controller: function($scope, $stateParams) {
-                    $scope.car = Lazy(carsList).findWhere({id: $stateParams.id});
+                    $scope.car = new Lazy(carsList).findWhere({id: $stateParams.id});
                 }
             })
             .state('cardetail', {
                 url: '/cardetail/:id',
                 templateUrl: 'pages/cars/carsdetails-partial.html',
                 controller: function($scope, $stateParams) {
-                    $scope.car = Lazy(carsList).findWhere({id: $stateParams.id});
+                    $scope.car = new Lazy(carsList).findWhere({id: $stateParams.id});
                 }
             })
         ;
