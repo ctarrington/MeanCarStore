@@ -1,8 +1,11 @@
 <div class="cars">
     <h1>List of Cars</h1>
     <div ng-repeat="car in model.cars">
-        {{car.model}} by {{car.make}} <a ui-sref=".details({id: car.id})">More Below</a> <a ui-sref="cardetail({id: car.id})">More</a>
+        {{car.model}} by {{car.make}} <span ng-show="pageState.showLink(car.id)"><a ui-sref=".details({id: car.id})">More Below</a></span>
     </div>
 
     <div ui-view></div>
+
+    <pre>pageState: {{pageState | json}}</pre>
+    <pre>current state: {{currentState()}}</pre>
 </div>
