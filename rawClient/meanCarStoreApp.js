@@ -1,6 +1,6 @@
 (function () {
     'use strict';
 
-    angular.module('mcsapp', ['ngAnimate', 'ngSanitize', 'ui.router']);
+    angular.module('mcsapp', ['ui.router', 'ngAnimate', 'ngSanitize']);
 
 })();

@@ -4,7 +4,11 @@
         {{car.model}} by {{car.make}} <span ng-show="pageState.showLink(car.id)"><a ui-sref=".details({id: car.id})">More Below</a></span>
     </div>
 
-    <div ui-view></div>
+    <div class="details">
+        <div ui-view></div>
+    </div>
+
+    <hr>
 
     <pre>pageState: {{pageState | json}}</pre>
     <pre>current state: {{currentState()}}</pre>
