@@ -1,15 +1,25 @@
 <div class="cars">
-    <h1>List of Cars</h1>
-    <div ng-repeat="car in model.cars">
-        {{car.model}} by {{car.make}} <span ng-show="pageState.showLink(car.id)"><a ui-sref=".details({id: car.id})">More Below</a></span>
+
+
+    <div class="row" ng-repeat="car in model.cars">
+        <div class="col-md-2">{{car.make}}</div>
+        <div class="col-md-2">{{car.model}}</div>
+        <div class="col-md-2">{{car.id}}</div>
+        <div class="col-md-2" ng-show="pageState.showLink(car.id)"><a ui-sref=".details({id: car.id})">More Below</a></div>
     </div>
 
-    <div class="details">
-        <div ui-view></div>
+    <div class="details row">
+        <div class="span12 ui-view-container">
+            <div ui-view></div>
+        </div>
     </div>
 
-    <hr>
 
-    <pre>pageState: {{pageState | json}}</pre>
-    <pre>current state: {{currentState()}}</pre>
+
+    <div class="row">
+        <hr>
+        <pre>pageState: {{pageState | json}}</pre>
+        <pre>current state: {{currentState()}}</pre>
+    </div>
+
 </div>

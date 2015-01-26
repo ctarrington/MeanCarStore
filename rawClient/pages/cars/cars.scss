@@ -4,6 +4,10 @@ div.cars {
 
     height: 140px;
 
+    .ui-view-container {
+      position: relative;
+    }
+
     /* Have to set height on ui-view to prevent collapsing during animation*/
     [ui-view] {
       height: 140px;
