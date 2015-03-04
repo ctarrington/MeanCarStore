@@ -1,6 +1,17 @@
 MeanCarStore
 ============
+Sample MEAN application and technology playground
 
+Prerequisites
+  - node
+  - gulp
 
- - Sample MEAN app
- - Technology playground
+Install
+ - git clone https://github.com/ctarrington/MeanCarStore.git
+ - cd MeanCarStore
+ - sudo npm install 
+ - cd build-gulp
+ - sudo npm install
+ - gulp
+ - cd ..
+ - node app.js
